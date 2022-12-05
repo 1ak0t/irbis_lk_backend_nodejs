@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "chalk": "5.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.10",
+    "@typescript-eslint/eslint-plugin": "5.45.0",
+    "@typescript-eslint/parser": "5.45.0",
+    "eslint": "8.29.0",
+    "json-server": "0.17.1",
+    "rimraf": "3.0.2",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.3"
+  },
+  "name": "irbis_lk",
+  "description": "Backend for Irbis_lk",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1ak0t/irbis_lk.git"
+  },
+  "author": "Igor Kot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1ak0t/irbis_lk/issues"
+  },
+  "homepage": "https://github.com/1ak0t/irbis_lk#readme"
+}
