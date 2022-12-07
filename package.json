@@ -14,10 +14,17 @@
   },
   "name": "irbis_lk",
   "description": "Backend for Irbis_lk",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src/ --ext .ts",
+    "start": "npm run build && node ./dist/main.js",
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "ts": "ts-node",
+    "mock:server": "json-server ./mocks/mock-server-data.json --port 3123"
   },
   "repository": {
     "type": "git",
