@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "chalk": "5.1.2"
+    "chalk": "5.1.2",
+    "dayjs": "1.11.7",
+    "got": "12.5.3"
   },
   "devDependencies": {
     "@types/node": "18.11.10",

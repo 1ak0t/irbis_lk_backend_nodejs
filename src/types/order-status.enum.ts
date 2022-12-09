@@ -1,10 +1,10 @@
 export enum OrderStatusEnum {
-  Accepted = 'Accepted',
-  Paid = 'Paid',
-  Fabricating = 'Fabricating',
-  Manufactured = 'Manufactured',
-  Delivering = 'Delivering',
-  InStock = 'In stock',
-  Realized = 'Realized',
-  Canceled  = 'Canceled'
+  Accepted = 'Принята',
+  Paid = 'Оплачена',
+  Fabricating = 'Производство',
+  Manufactured = 'Произведена',
+  Delivering = 'Доставляется',
+  InStock = 'На складе',
+  Realized = 'Выполнена',
+  Canceled  = 'Отменена'
 }

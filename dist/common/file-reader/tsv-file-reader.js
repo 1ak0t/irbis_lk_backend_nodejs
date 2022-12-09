@@ -16,15 +16,14 @@ export default class TsvFileReader {
             .split('\n')
             .filter((row) => row.trim() !== '')
             .map((line) => line.split('\t'))
-            .map(([number, date, agent, status, manufacturedData, texture, patina, facades]) => ({
+            .map(([number, date, agent, status, manufacturedData, texture, patina]) => ({
             number,
-            date,
+            date: new Date(date),
             agent,
-            manufacturedData,
+            manufacturedData: new Date(manufacturedData),
             status: OrderStatusEnum[status],
             texture,
-            patina,
-            facades,
+            patina
         }));
     }
 }

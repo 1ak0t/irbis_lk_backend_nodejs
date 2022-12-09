@@ -1,11 +1,9 @@
-import { OrderStatusEnum } from './order-status.enum.js';
 export type OrderType = {
     number: string;
-    date: string;
+    date: Date;
     agent: string;
-    status: OrderStatusEnum;
-    manufacturedData: string;
+    status: string;
+    manufacturedData: Date;
     texture: string;
     patina: string;
-    facades: string;
 };
