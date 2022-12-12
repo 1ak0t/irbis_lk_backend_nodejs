@@ -1,8 +1,16 @@
 {
   "dependencies": {
+    "@types/convict": "6.1.1",
+    "@types/convict-format-with-validator": "6.0.2",
     "chalk": "5.1.2",
+    "convict": "6.2.3",
+    "convict-format-with-validator": "6.2.0",
     "dayjs": "1.11.7",
-    "got": "12.5.3"
+    "dotenv": "16.0.3",
+    "got": "12.5.3",
+    "inversify": "6.0.1",
+    "pino": "8.7.0",
+    "reflect-metadata": "0.1.13"
   },
   "devDependencies": {
     "@types/node": "18.11.10",
@@ -10,6 +18,7 @@
     "@typescript-eslint/parser": "5.45.0",
     "eslint": "8.29.0",
     "json-server": "0.17.1",
+    "pino-pretty": "9.1.1",
     "rimraf": "3.0.2",
     "ts-node": "10.9.1",
     "typescript": "4.9.3"
@@ -22,6 +31,7 @@
   "scripts": {
     "lint": "eslint src/ --ext .ts",
     "start": "npm run build && node ./dist/main.js",
+    "start:dev": "npm run ts ./src/main.ts | pino-pretty --colorize -- translateTime SYS: standart",
     "build": "npm run clean && npm run compile",
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
