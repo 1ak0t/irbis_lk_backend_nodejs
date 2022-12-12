@@ -1,7 +1,9 @@
 import {LoggerInterface} from './logger.interface.js';
 import pino from 'pino';
 import {Logger} from 'pino';
+import {injectable} from 'inversify';
 
+@injectable()
 export default class LoggerService implements LoggerInterface{
   private logger!: Logger;
 
