@@ -7,6 +7,10 @@ export type ConfigSchema = {
   PORT: number;
   SALT: string;
   DB_HOST: string;
+  DB_PORT: number;
+  DB_NAME: string;
+  DB_USER: string;
+  DB_PASSWORD: string;
 }
 
 export const configSchema = convict<ConfigSchema>({
@@ -27,5 +31,8 @@ export const configSchema = convict<ConfigSchema>({
     format: 'ipaddress',
     env: 'DB_HOST',
     default: '127.0.0.1'
+  },
+  DB_PORT: {
+    doc: 'Port '
   }
 });
