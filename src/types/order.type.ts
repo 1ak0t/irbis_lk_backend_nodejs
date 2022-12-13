@@ -6,4 +6,5 @@ export type OrderType = {
   manufacturedData: Date;
   texture: string;
   patina: string;
+  userId1c: string;
 }
