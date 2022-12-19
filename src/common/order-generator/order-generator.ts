@@ -9,6 +9,8 @@ export default class OrderGenerator implements OrderGeneratorInterface {
   public generate(): string {
     const number = getRandomItem<string>(this.mockData.number);
     const userId1c = getRandomItem<string>(this.mockData.userId1c);
+    const partner = getRandomItem<string>(this.mockData.partner);
+    const email = getRandomItem<string>(this.mockData.email);
     const data = dayjs().add(generateRandomValue(-20, 0), 'day').format();
     const agent = getRandomItem<string>(this.mockData.agent);
     const status = getRandomItem<string>(this.mockData.status);
@@ -19,6 +21,8 @@ export default class OrderGenerator implements OrderGeneratorInterface {
     return [
       number,
       userId1c,
+      partner,
+      email,
       data,
       agent,
       status,

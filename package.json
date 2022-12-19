@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@typegoose/typegoose": "10.0.0",
     "@types/convict": "6.1.1",
     "@types/convict-format-with-validator": "6.0.2",
     "chalk": "5.1.2",

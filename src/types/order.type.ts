@@ -1,10 +1,12 @@
+import {UserType} from './user.type.js';
+
 export type OrderType = {
   number: string;
+  user: UserType;
   date: Date;
   agent: string;
   status: string;
-  manufacturedData: Date;
+  manufacturedDate: Date;
   texture: string;
   patina: string;
-  userId1c: string;
 }
