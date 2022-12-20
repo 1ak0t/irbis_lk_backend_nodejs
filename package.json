@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@typegoose/typegoose": "10.0.0",
     "@types/convict": "6.1.1",
     "@types/convict-format-with-validator": "6.0.2",
     "chalk": "5.1.2",
@@ -19,6 +20,7 @@
     "@typescript-eslint/parser": "5.45.0",
     "eslint": "8.29.0",
     "json-server": "0.17.1",
+    "nanoid": "4.0.0",
     "pino-pretty": "9.1.1",
     "rimraf": "3.0.2",
     "ts-node": "10.9.1",

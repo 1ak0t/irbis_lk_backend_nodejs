@@ -33,6 +33,27 @@ export const configSchema = convict<ConfigSchema>({
     default: '127.0.0.1'
   },
   DB_PORT: {
-    doc: 'Port '
+    doc: 'Port for mongodb',
+    format: 'port',
+    env: 'DB_PORT',
+    default: 27017
+  },
+  DB_NAME: {
+    doc: 'Db name',
+    format: String,
+    env: 'DB_NAME',
+    default: 'irbis_lk'
+  },
+  DB_USER: {
+    doc: 'Db user',
+    format: String,
+    env: 'DB_USER',
+    default: null
+  },
+  DB_PASSWORD: {
+    doc: 'Db user password',
+    format: String,
+    env: 'DB_PASSWORD',
+    default: null
   }
 });

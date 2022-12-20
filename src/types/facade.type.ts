@@ -1,10 +1,16 @@
-import {FacadeViewEnum} from './facade-view.enum.js';
-
 export type FacadeType = {
-  view: FacadeViewEnum
-  property: string;
-  surface: number;
+  orderId: string;
+  type: string;
+  direction: string;
+  patina: string;
+  milling: string;
+  cutting: string;
+  view: string;
+  height: number;
+  width: number;
+  thickness: string;
+  square: number;
   count: number;
-  cost: number;
+  price: number;
   total: number;
 }
