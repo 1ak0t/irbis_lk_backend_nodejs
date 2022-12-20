@@ -17,8 +17,8 @@ import {getURI} from '../utils/db.js';
 const DEFAULT_DB_PORT = 27017;
 const DEFAULT_USER_PASSWORD = '123456';
 
-export default class ImportCommand implements CliCommandInterface {
-  public readonly name = '--import';
+export default class ImportOrdersCommand implements CliCommandInterface {
+  public readonly name = '--import-orders';
   private userService!: UserServiceInterface;
   private orderService!: OrderServiceInterface;
   private databaseService!: DatabaseInterface;

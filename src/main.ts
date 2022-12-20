@@ -16,6 +16,9 @@ import {UserEntity, UserModel} from './modules/user/user.entity.js';
 import {OrderServiceInterface} from './modules/order/order-service.interface.js';
 import {OrderService} from './modules/order/order.service.js';
 import {OrderEntity, OrderModel} from './modules/order/order.entity.js';
+import {FacadesServiceInterface} from './modules/facades/facades-service.interface.js';
+import {FacadesService} from './modules/facades/facades-service.js';
+import {FacadeModel, FacadesEntity} from './modules/facades/facades.entity.js';
 
 mongoose.set('strictQuery', false);
 
@@ -28,6 +31,9 @@ applicationContainer.bind<UserServiceInterface>(Component.UserServiceInterface).
 applicationContainer.bind<types.ModelType<UserEntity>>(Component.UserModel).toConstantValue(UserModel);
 applicationContainer.bind<OrderServiceInterface>(Component.OrderServiceInterface).to(OrderService);
 applicationContainer.bind<types.ModelType<OrderEntity>>(Component.OrderModel).toConstantValue(OrderModel);
+applicationContainer.bind<FacadesServiceInterface>(Component.FacadesServiceInterface).to(FacadesService);
+applicationContainer.bind<types.ModelType<FacadesEntity>>(Component.FacadeModel).toConstantValue(FacadeModel);
+
 const application = applicationContainer.get<Application>(Component.Application);
 
 await application.init();

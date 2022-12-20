@@ -6,6 +6,7 @@ export type OrderType = {
   date: Date;
   agent: string;
   status: string;
+  milling: string;
   manufacturedDate: Date;
   texture: string;
   patina: string;
