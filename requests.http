@@ -1,1 +1,5 @@
-GET http://localhost:3123/api
+GET http://localhost:5000/orders
+Content-Type: application/json
+
+
+###

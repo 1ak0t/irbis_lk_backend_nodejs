@@ -21,8 +21,12 @@ export class OrderService implements OrderServiceInterface {
     return result;
   }
 
-  public async findById(orderId: string): Promise<DocumentType<OrderEntity> | null> {
-    return this.orderModel.findById(orderId).exec();
+  public async getOrderNumbers(): Promise<DocumentType<OrderEntity>[]> {
+    return this.orderModel.find().exec();
+  }
+
+  public async findByUserId(userId: string): Promise<DocumentType<OrderEntity>[] | null> {
+    return this.orderModel.find({userId: userId}).exec();
   }
 
   public async findById1c(id1c: string): Promise<DocumentType<OrderEntity>[] | null> {

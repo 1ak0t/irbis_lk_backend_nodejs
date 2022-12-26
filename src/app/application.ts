@@ -4,21 +4,28 @@ import {inject, injectable} from 'inversify';
 import {Component} from '../types/component.types.js';
 import DatabaseService from '../common/database-client/database.service.js';
 import {getURI} from '../utils/db.js';
-import {UserModel} from '../modules/user/user.entity.js';
+import express, {Express} from 'express';
+import {ControllerInterface} from '../common/controller/controller.interface.js';
 
 @injectable()
 export default class Application {
+  private expressApp: Express;
+
   constructor(
     @inject(Component.LoggerInterface) private logger: LoggerInterface,
     @inject(Component.ConfigInterface) private config: ConfigService,
     @inject(Component.DatabaseInterface) private databaseClient: DatabaseService,
+    @inject(Component.OrderController) private orderController: ControllerInterface
     ) {
+      this.expressApp = express();
+  }
+
+  public initRoutes() {
+    this.expressApp.use('/orders', this.orderController.router);
   }
 
   public async init() {
     this.logger.info('Application initialization...');
-    this.logger.info(`Get value from env $DB_HOST: ${this.config.get('DB_HOST')}`);
-    this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
 
     const uri = getURI(
       this.config.get('DB_USER'),
@@ -29,13 +36,9 @@ export default class Application {
     );
 
     await this.databaseClient.connect(uri);
-    const user = await UserModel.create({
-      email: 'teasdst@teASDs.te',
-      name: 'TesASt',
-      userId1c: 'asaasdfsasa',
-    });
 
-    console.log(user)
-
+    this.initRoutes();
+    this.expressApp.listen(this.config.get('PORT'));
+    this.logger.info(`Server started on ${this.config.get('PORT')} port`);
   }
 }

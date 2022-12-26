@@ -14,4 +14,8 @@ export class FacadesService implements FacadesServiceInterface {
   public async create(dto: CreateFacadeDto): Promise<DocumentType<FacadesEntity>> {
     return await this.facadeModel.create(dto);
   }
+
+  public async findByOrderId(orderId:string): Promise<DocumentType<FacadesEntity>[] | null> {
+    return this.facadeModel.find({orderId: orderId}).exec();
+  }
 }

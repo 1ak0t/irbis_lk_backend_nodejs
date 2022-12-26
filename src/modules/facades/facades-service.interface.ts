@@ -4,4 +4,5 @@ import {FacadesEntity} from './facades.entity.js';
 
 export interface FacadesServiceInterface {
   create(dto: CreateFacadeDto): Promise<DocumentType<FacadesEntity>>;
+  findByOrderId(orderId: string): Promise<DocumentType<FacadesEntity>[] | null>;
 }

@@ -7,7 +7,7 @@ export default class OrderGenerator implements OrderGeneratorInterface {
   constructor(private readonly mockData: MockOrderType) {}
 
   public generate(): string {
-    const number = getRandomItem<string>(this.mockData.number);
+    const number = generateRandomValue(1000000, 9999999);
     const userId1c = getRandomItem<string>(this.mockData.userId1c);
     const partner = getRandomItem<string>(this.mockData.partner);
     const email = getRandomItem<string>(this.mockData.email);

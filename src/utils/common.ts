@@ -1,7 +1,7 @@
 import {OrderStatusEnum} from '../types/order-status.enum.js';
 import crypto from 'crypto';
 import {OrderServiceInterface} from '../modules/order/order-service.interface.js';
-import {generateRandomValue} from './rundom.js';
+import {generateRandomValue, getRandomItem} from './rundom.js';
 
 export const createOrder = (row: string) => {
   const token = row.replace('\n', '').split('\t');
@@ -22,7 +22,9 @@ export const createOrder = (row: string) => {
 
 export const createFacade = async (row: string, orderService: OrderServiceInterface) => {
   const token = row.replace('\n', '').split('\t');
-  const [orderId, type, direction, milling,view, cutting, thickness] = token;
+  const [type, direction, milling,view, cutting, thickness] = token;
+  let orderIds = await orderService.getOrderNumbers().then((result) => result.map((item) => item.number));
+  const orderId = getRandomItem(orderIds);
   const patina = await orderService.findById1c(orderId).then((result) => result ? result[0].patina : '');
   const texture = await orderService.findById1c(orderId).then((result) => result ? result[0].texture : '');
 
