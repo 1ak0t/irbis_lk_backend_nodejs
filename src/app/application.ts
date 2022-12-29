@@ -6,6 +6,7 @@ import DatabaseService from '../common/database-client/database.service.js';
 import {getURI} from '../utils/db.js';
 import express, {Express} from 'express';
 import {ControllerInterface} from '../common/controller/controller.interface.js';
+import {ExceptionFilterInterface} from '../common/errors/exception-filter.interface.js';
 
 @injectable()
 export default class Application {
@@ -15,13 +16,24 @@ export default class Application {
     @inject(Component.LoggerInterface) private logger: LoggerInterface,
     @inject(Component.ConfigInterface) private config: ConfigService,
     @inject(Component.DatabaseInterface) private databaseClient: DatabaseService,
-    @inject(Component.OrderController) private orderController: ControllerInterface
+    @inject(Component.OrderController) private orderController: ControllerInterface,
+    @inject(Component.ExceptionFilterInterface) private exceptionFilter: ExceptionFilterInterface,
+    @inject(Component.UserController) private userController: ControllerInterface
     ) {
       this.expressApp = express();
   }
 
   public initRoutes() {
     this.expressApp.use('/orders', this.orderController.router);
+    this.expressApp.use('/users', this.userController.router);
+  }
+
+  public initMiddleware() {
+    this.expressApp.use(express.json());
+  }
+
+  public initExceptionFilters() {
+    this.expressApp.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
   }
 
   public async init() {
@@ -37,7 +49,9 @@ export default class Application {
 
     await this.databaseClient.connect(uri);
 
+    this.initMiddleware();
     this.initRoutes();
+    this.initExceptionFilters();
     this.expressApp.listen(this.config.get('PORT'));
     this.logger.info(`Server started on ${this.config.get('PORT')} port`);
   }

@@ -1,5 +1,18 @@
 GET http://localhost:5000/orders
 Content-Type: application/json
 
+{
+  "userId": "63a524e3646026a950d2b72c"
+}
 
 ###
+
+POST http://localhost:5000/users/register
+Content-Type: application/json
+
+{
+  "email": "test@rest.api",
+  "name": "RestAPI",
+  "userId1c": "asdafsv",
+  "password": "a;sm;lm;lnncvx"
+}

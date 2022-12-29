@@ -6,6 +6,9 @@ import {HttpMethod} from '../../types/http-method.enum.js';
 import {Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {OrderServiceInterface} from './order-service.interface.js';
+import {fillDTO} from '../../utils/common.js';
+import OrderResponse from './response/order.response.js';
+import GetOrderDto from './dto/get-order.dto.js';
 
 @injectable()
 export default class OrderController extends Controller {
@@ -20,8 +23,9 @@ export default class OrderController extends Controller {
     this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
   }
 
-  public async index(_req: Request, res: Response): Promise<void> {
-    const order = await this.orderService.findByUserId('63a524e3646026a950d2b72c');
-    this.send(res, StatusCodes.OK, order);
+  public async index({body}: Request<Record<string, unknown>, Record<string, unknown>, GetOrderDto>, res: Response): Promise<void> {
+    const orders = await this.orderService.findByUserId(body.userId);
+    const orderResponse = fillDTO(OrderResponse, orders);
+    this.send(res, StatusCodes.OK, orderResponse);
   }
 }
