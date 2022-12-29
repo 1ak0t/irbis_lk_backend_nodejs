@@ -1,0 +1,241 @@
+openapi: 3.0.0
+info:
+  title: API сервер для личного кабинета ФМФ "Ирбис".
+  description: |-
+    * Список ресурсов и маршрутов сервера.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+
+tags:
+  - name: orders
+    description: Дествия с заказами
+  - name: facades
+    description: Дествия с фасадами
+  - name: users
+    description: Действия с пользователями
+
+paths:
+  /orders:
+    get:
+      tags:
+        - orders
+      summary: Запрос заказов
+      operationId: getOrders
+      description: Получение заказов пользователя
+
+      requestBody:
+        description: Идентификатор пользователя для запроса заказов
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: di3kbD8F
+        required: true
+
+      responses:
+        '200':
+          description: Массив заказов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
+
+  /facades:
+    get:
+      tags:
+        - facades
+      summary: Запрос фасадов
+      operationId: getOrders
+      description: Получение фасадов для определенного заказа
+
+      requestBody:
+        description: Номер заказа
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: ОУ-4071380
+        required: true
+
+      responses:
+        '200':
+          description: Массив фасадов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/facade'
+
+
+
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      operationId: userReg
+      description: Регистрирует нового пользователя
+
+      requestBody:
+        description: Информация для создания нового пользователя
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        '409':
+          description: Пользователь с таким email уже существует
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      operationId: userAuth
+      description: Авторизует пользователя на основе логина и пароля
+
+      requestBody:
+        description: Информация для создания нового пользователя
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+
+      responses:
+        '200':
+          description: Авторизация успешна
+
+
+
+components:
+  schemas:
+    createUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: partner@fmf-irbis.ru
+
+        password:
+          type: string
+          example: password
+
+    order:
+      type: object
+
+      properties:
+        number:
+          type: string
+          example: АЗ-7409522
+
+        date:
+          type: string
+          example: 2022-12-14T06:23:21.000+0000
+
+        agent:
+          type: string
+          example: Agent
+
+        status:
+          type: string
+          example: Complited
+
+        manufacturedDate:
+          type: string
+          example: 2022-12-27T06:23:21.000+0000
+
+        texture:
+          type: string
+          example: Жасмин
+
+        patina:
+          type: string
+          example: Платина
+
+    facade:
+      type: object
+
+      properties:
+        type:
+          type: string
+          example: Прямой
+
+        direction:
+          type: string
+          example: По-вертикали
+
+        patina:
+          type: string
+          example: Платина
+
+        milling:
+          type: string
+          example: Честер
+
+        cutting:
+          type: string
+          example:
+
+        texture:
+          type: string
+          example: Жасмин
+
+        view:
+          type: string
+          example: Глухой
+
+        height:
+          type: number
+          example: 753
+
+        width:
+          type: number
+          example: 578
+
+        thickness:
+          type: string
+          example: 19mm
+
+        square:
+          type: number
+          example: 0.357
+
+        count:
+          type: number
+          example: 2
+
+        price:
+          type: number
+          example: 1287
+
+        total:
+          type: number
+          example: 2574
+
+    user:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: partner@fmf-irbis.ru
+
+        name:
+          type: string
+          example: Partner

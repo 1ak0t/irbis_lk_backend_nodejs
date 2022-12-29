@@ -6,7 +6,6 @@ export default class FacadeGenerator implements FacadeGeneratorInterface {
   constructor(private readonly mockData: MockFacadeType) {}
 
   public generate(): string {
-    const orderIds = getRandomItem<string>(this.mockData.orderIds);
     const type = getRandomItem<string>(this.mockData.type);
     const milling = getRandomItem<string>(this.mockData.milling);
     const direction = getRandomItem<string>(this.mockData.direction);
@@ -15,7 +14,6 @@ export default class FacadeGenerator implements FacadeGeneratorInterface {
     const thickness = getRandomItem<string>(this.mockData.thickness);
 
     return [
-      orderIds,
       type,
       direction,
       milling,

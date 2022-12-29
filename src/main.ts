@@ -19,6 +19,11 @@ import {OrderEntity, OrderModel} from './modules/order/order.entity.js';
 import {FacadesServiceInterface} from './modules/facades/facades-service.interface.js';
 import {FacadesService} from './modules/facades/facades-service.js';
 import {FacadeModel, FacadesEntity} from './modules/facades/facades.entity.js';
+import {ControllerInterface} from './common/controller/controller.interface.js';
+import OrderController from './modules/order/order.controller.js';
+import {ExceptionFilterInterface} from './common/errors/exception-filter.interface.js';
+import ExceptionFilter from './common/errors/exception-filter.js';
+import UserController from './modules/user/user.controller.js';
 
 mongoose.set('strictQuery', false);
 
@@ -33,6 +38,9 @@ applicationContainer.bind<OrderServiceInterface>(Component.OrderServiceInterface
 applicationContainer.bind<types.ModelType<OrderEntity>>(Component.OrderModel).toConstantValue(OrderModel);
 applicationContainer.bind<FacadesServiceInterface>(Component.FacadesServiceInterface).to(FacadesService);
 applicationContainer.bind<types.ModelType<FacadesEntity>>(Component.FacadeModel).toConstantValue(FacadeModel);
+applicationContainer.bind<ControllerInterface>(Component.OrderController).to(OrderController).inSingletonScope();
+applicationContainer.bind<ExceptionFilterInterface>(Component.ExceptionFilterInterface).to(ExceptionFilter).inSingletonScope();
+applicationContainer.bind<ControllerInterface>(Component.UserController).to(UserController).inSingletonScope();
 
 const application = applicationContainer.get<Application>(Component.Application);
 
