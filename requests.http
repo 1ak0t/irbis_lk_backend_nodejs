@@ -1,9 +1,5 @@
 GET http://localhost:5000/orders
-Content-Type: application/json
-
-{
-  "userId": "63a524e3646026a950d2b72c"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjN2I5NzBkYzgwYjI4Njk1YmY0YTM2IiwiaWF0IjoxNjc0MDMzNjk1LCJleHAiOjE2NzQyMDY0OTV9.BBP3fOAjtTT-abOg5rExQckYBhWCIk1a855K-ULMmgs
 
 ###
 
@@ -16,3 +12,23 @@ Content-Type: application/json
   "userId1c": "asdafsv",
   "password": "a;sm;lm;lnncvx"
 }
+
+###
+
+GET http://localhost:5000/facades/7215491
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjN2I5NzBkYzgwYjI4Njk1YmY0YTM2IiwiaWF0IjoxNjc0MDMzNjk1LCJleHAiOjE2NzQyMDY0OTV9.BBP3fOAjtTT-abOg5rExQckYBhWCIk1a855K-ULMmgs
+
+###
+
+POST http://localhost:5000/users/login
+Content-Type: application/json
+
+{
+  "email": "sdfbkr@dfg.uk",
+  "password": "123456"
+}
+
+###
+
+GET http://localhost:5000/users/login
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjN2I5NzBkYzgwYjI4Njk1YmY0YTM2IiwiaWF0IjoxNjc0MDMzNjk1LCJleHAiOjE2NzQyMDY0OTV9.BBP3fOAjtTT-abOg5rExQckYBhWCIk1a855K-ULMmgs

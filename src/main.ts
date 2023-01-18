@@ -24,6 +24,7 @@ import OrderController from './modules/order/order.controller.js';
 import {ExceptionFilterInterface} from './common/errors/exception-filter.interface.js';
 import ExceptionFilter from './common/errors/exception-filter.js';
 import UserController from './modules/user/user.controller.js';
+import FacadesController from './modules/facades/facades.controller.js';
 
 mongoose.set('strictQuery', false);
 
@@ -41,6 +42,7 @@ applicationContainer.bind<types.ModelType<FacadesEntity>>(Component.FacadeModel)
 applicationContainer.bind<ControllerInterface>(Component.OrderController).to(OrderController).inSingletonScope();
 applicationContainer.bind<ExceptionFilterInterface>(Component.ExceptionFilterInterface).to(ExceptionFilter).inSingletonScope();
 applicationContainer.bind<ControllerInterface>(Component.UserController).to(UserController).inSingletonScope();
+applicationContainer.bind<ControllerInterface>(Component.FacadesController).to(FacadesController).inSingletonScope();
 
 const application = applicationContainer.get<Application>(Component.Application);
 

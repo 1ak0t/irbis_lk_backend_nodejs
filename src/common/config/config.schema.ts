@@ -11,6 +11,7 @@ export type ConfigSchema = {
   DB_NAME: string;
   DB_USER: string;
   DB_PASSWORD: string;
+  JWT_SECRET: string;
 }
 
 export const configSchema = convict<ConfigSchema>({
@@ -54,6 +55,12 @@ export const configSchema = convict<ConfigSchema>({
     doc: 'Db user password',
     format: String,
     env: 'DB_PASSWORD',
+    default: null
+  },
+  JWT_SECRET: {
+    doc: 'Secret for sign JWT',
+    format: String,
+    env: 'JWT_SECRET',
     default: null
   }
 });
