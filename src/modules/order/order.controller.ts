@@ -9,6 +9,7 @@ import {OrderServiceInterface} from './order-service.interface.js';
 import {fillDTO} from '../../utils/common.js';
 import OrderResponse from './response/order.response.js';
 import GetOrderDto from './dto/get-order.dto.js';
+import {PrivateRouteMiddleware} from '../../common/middlewares/private-route.middleware.js';
 
 @injectable()
 export default class OrderController extends Controller {
@@ -20,11 +21,11 @@ export default class OrderController extends Controller {
 
     this.logger.info('Register routes for OrderController...');
 
-    this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
+    this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index, middlewares: [new PrivateRouteMiddleware()]});
   }
 
-  public async index({body}: Request<Record<string, unknown>, Record<string, unknown>, GetOrderDto>, res: Response): Promise<void> {
-    const orders = await this.orderService.findByUserId(body.userId);
+  public async index({user}: Request<Record<string, unknown>, Record<string, unknown>, GetOrderDto>, res: Response): Promise<void> {
+    const orders = await this.orderService.findByUserId(user.userId);
     const orderResponse = fillDTO(OrderResponse, orders);
     this.send(res, StatusCodes.OK, orderResponse);
   }

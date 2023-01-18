@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import {OrderServiceInterface} from '../modules/order/order-service.interface.js';
 import {generateRandomValue, getRandomItem} from './rundom.js';
 import {ClassConstructor, plainToInstance} from 'class-transformer';
+import * as jose from 'jose';
 
 export const createOrder = (row: string) => {
   const token = row.replace('\n', '').split('\t');
@@ -59,3 +60,10 @@ export const fillDTO = <T,V>(someDto: ClassConstructor<T>, plainObject: V) =>
 export const createErrorObject = (message: string) => ({
   error: message,
 });
+
+export const createJWT = async (algorithm: string, jwtSecret: string, payload: object): Promise<string> =>
+  new jose.SignJWT({...payload})
+    .setProtectedHeader({alg: algorithm})
+    .setIssuedAt()
+    .setExpirationTime('2d')
+    .sign(crypto.createSecretKey(jwtSecret, 'utf-8'));

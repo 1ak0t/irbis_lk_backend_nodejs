@@ -11,5 +11,6 @@ export const Component = {
   FacadeModel: Symbol.for('FacadeModel'),
   OrderController: Symbol.for('OrderController'),
   ExceptionFilterInterface: Symbol.for('ExceptionFilterInterface'),
-  UserController: Symbol.for('UserController')
+  UserController: Symbol.for('UserController'),
+  FacadesController: Symbol.for('FacadesController')
 } as const;
