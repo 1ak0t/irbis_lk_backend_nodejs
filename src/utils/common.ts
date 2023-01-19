@@ -67,3 +67,5 @@ export const createJWT = async (algorithm: string, jwtSecret: string, payload: o
     .setIssuedAt()
     .setExpirationTime('2d')
     .sign(crypto.createSecretKey(jwtSecret, 'utf-8'));
+
+export const getFullServerPath = (host: string, port: number) => `http://${host}:${port}`;

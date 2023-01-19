@@ -9,6 +9,7 @@ import {ControllerInterface} from '../common/controller/controller.interface.js'
 import {ExceptionFilterInterface} from '../common/errors/exception-filter.interface.js';
 import {AuthenticateMiddleware} from '../common/middlewares/authenticate.middleware.js';
 import cors from 'cors';
+import {getFullServerPath} from '../utils/common.js';
 
 @injectable()
 export default class Application {
@@ -61,6 +62,6 @@ export default class Application {
     this.initRoutes();
     this.initExceptionFilters();
     this.expressApp.listen(this.config.get('PORT'));
-    this.logger.info(`Server started on ${this.config.get('PORT')} port`);
+    this.logger.info(`Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))} port`);
   }
 }

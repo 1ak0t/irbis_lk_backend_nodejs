@@ -13,8 +13,9 @@ import {OrderModel} from '../modules/order/order.entity.js';
 import DatabaseService from '../common/database-client/database.service.js';
 import {OrderType} from '../types/order.type.js';
 import {getURI} from '../utils/db.js';
+import ConfigService from '../common/config/config.service.js';
+import {ConfigInterface} from '../common/config/config.interface.js';
 
-const DEFAULT_DB_PORT = 27017;
 const DEFAULT_USER_PASSWORD = '123456';
 
 export default class ImportOrdersCommand implements CliCommandInterface {
@@ -22,6 +23,7 @@ export default class ImportOrdersCommand implements CliCommandInterface {
   private userService!: UserServiceInterface;
   private orderService!: OrderServiceInterface;
   private databaseService!: DatabaseInterface;
+  private configService!: ConfigInterface;
   private logger: LoggerInterface;
   private salt!: string;
 
@@ -33,6 +35,8 @@ export default class ImportOrdersCommand implements CliCommandInterface {
     this.userService = new UserService(this.logger, UserModel);
     this.orderService = new OrderService(this.logger, OrderModel);
     this.databaseService = new DatabaseService(this.logger);
+    this.configService = new ConfigService(this.logger);
+    this.salt = this.configService.get('SALT');
   }
 
   private async saveOrder(order: OrderType) {
@@ -59,9 +63,14 @@ export default class ImportOrdersCommand implements CliCommandInterface {
     this.databaseService.disconnect();
   }
 
-  public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
-    const uri = getURI(login, password, host, DEFAULT_DB_PORT, dbname);
-    this.salt = salt;
+  public async execute(filename: string): Promise<void> {
+    const uri = getURI(
+      this.configService.get('DB_USER'),
+      this.configService.get('DB_PASSWORD'),
+      this.configService.get('DB_HOST'),
+      this.configService.get('DB_PORT'),
+      this.configService.get('DB_NAME')
+    );
 
     await this.databaseService.connect(uri);
 

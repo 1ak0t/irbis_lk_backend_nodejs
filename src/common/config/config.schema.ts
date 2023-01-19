@@ -4,6 +4,7 @@ import validators from 'convict-format-with-validator';
 convict.addFormats(validators);
 
 export type ConfigSchema = {
+  HOST: string;
   PORT: number;
   SALT: string;
   DB_HOST: string;
@@ -15,6 +16,12 @@ export type ConfigSchema = {
 }
 
 export const configSchema = convict<ConfigSchema>({
+  HOST: {
+    doc: 'Host where started server',
+    format: String,
+    env: 'HOST',
+    default: 'localhost'
+  },
   PORT: {
     doc: 'Port for incoming connection',
     format: 'port',

@@ -13,14 +13,15 @@ import {FacadeType} from '../types/facade.type.js';
 import {OrderServiceInterface} from '../modules/order/order-service.interface.js';
 import {OrderService} from '../modules/order/order.service.js';
 import {OrderModel} from '../modules/order/order.entity.js';
-
-const DEFAULT_DB_PORT = 27017;
+import {ConfigInterface} from '../common/config/config.interface.js';
+import ConfigService from '../common/config/config.service.js';
 
 export default class ImportFacadesCommand implements CliCommandInterface {
   public readonly name = '--import-facades';
   private facadeService!: FacadesServiceInterface;
   private orderService!: OrderServiceInterface;
   private databaseService!: DatabaseInterface;
+  private configService!: ConfigInterface;
   private logger: LoggerInterface;
 
   constructor() {
@@ -31,6 +32,8 @@ export default class ImportFacadesCommand implements CliCommandInterface {
     this.facadeService = new FacadesService(FacadeModel);
     this.orderService = new OrderService(this.logger, OrderModel);
     this.databaseService = new DatabaseService(this.logger);
+    this.configService = new ConfigService(this.logger);
+
   }
 
   private async saveFacade(facade: FacadeType) {
@@ -48,8 +51,14 @@ export default class ImportFacadesCommand implements CliCommandInterface {
     this.databaseService.disconnect();
   }
 
-  public async execute(filename: string, login: string, password: string, host: string, dbname: string): Promise<void> {
-    const uri = getURI(login, password, host, DEFAULT_DB_PORT, dbname);
+  public async execute(filename: string): Promise<void> {
+    const uri = getURI(
+      this.configService.get('DB_USER'),
+      this.configService.get('DB_PASSWORD'),
+      this.configService.get('DB_HOST'),
+      this.configService.get('DB_PORT'),
+      this.configService.get('DB_NAME')
+    );
 
     await this.databaseService.connect(uri);
 
