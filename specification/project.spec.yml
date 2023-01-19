@@ -16,6 +16,9 @@ tags:
   - name: users
     description: Действия с пользователями
 
+servers:
+  - url: http://localhost:5000
+
 paths:
   /orders:
     get:
@@ -24,15 +27,6 @@ paths:
       summary: Запрос заказов
       operationId: getOrders
       description: Получение заказов пользователя
-
-      requestBody:
-        description: Идентификатор пользователя для запроса заказов
-        content:
-          text/plain:
-            schema:
-              type: string
-              example: di3kbD8F
-        required: true
 
       responses:
         '200':
@@ -43,23 +37,22 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/order'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
 
-  /facades:
+  /facades/{orderId}:
     get:
       tags:
         - facades
       summary: Запрос фасадов
       operationId: getOrders
       description: Получение фасадов для определенного заказа
-
-      requestBody:
-        description: Номер заказа
-        content:
-          text/plain:
-            schema:
-              type: string
-              example: ОУ-4071380
-        required: true
+      parameters:
+        - in: path
+          name: orderId
+          schema:
+            type: string
+          required: true
 
       responses:
         '200':
@@ -120,9 +113,34 @@ paths:
         '200':
           description: Авторизация успешна
 
+    get:
+      tags:
+        - users
+      summary: Проверка авторизации
+      operationId: checkAuth
+      description: Проверка авторизован ли пользователь
+
+      responses:
+        '200':
+          description: Пользователь авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
 
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    UnauthorizedError:
+      description: Токен не получен или не верен
+
   schemas:
     createUser:
       type: object
@@ -232,10 +250,16 @@ components:
       type: object
 
       properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdE
         email:
           type: string
           example: partner@fmf-irbis.ru
 
-        name:
+        id1c:
           type: string
-          example: Partner
+          example: 3514486
+
+security:
+  - bearerAuth: []

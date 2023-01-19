@@ -66,7 +66,7 @@ export default class UserController extends Controller {
       {email: user.email, userId1c: user.userId1c, userId: user.id}
     )
 
-    this.ok(res, fillDTO(LoggedUserDto, {email: user.email, token}))
+    this.ok(res, fillDTO(LoggedUserDto, {email: user.email, userId1c: user.userId1c, token}))
   }
 
   public async checkAuthenticate(req: Request, res: Response) {
