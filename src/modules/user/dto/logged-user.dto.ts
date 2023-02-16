@@ -9,4 +9,7 @@ export default class LoggedUserDto {
 
   @Expose()
   public userId1c!: string;
+
+  @Expose()
+  public name!: string;
 }

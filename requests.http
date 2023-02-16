@@ -1,5 +1,5 @@
 GET http://localhost:5000/orders
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjN2I5NzBkYzgwYjI4Njk1YmY0YTM2IiwiaWF0IjoxNjc0MDMzNjk1LCJleHAiOjE2NzQyMDY0OTV9.BBP3fOAjtTT-abOg5rExQckYBhWCIk1a855K-ULMmgs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjOGM0OGVhNmI2ZTRmMzc4M2IxN2MwIiwiaWF0IjoxNjc0NjE1NjEzLCJleHAiOjE2NzQ3ODg0MTN9.srS0buycC2cKk8Fuw34nz0-c0LekRYF4jG1rNuGFlE0
 
 ###
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/facades/7215491
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjN2I5NzBkYzgwYjI4Njk1YmY0YTM2IiwiaWF0IjoxNjc0MDMzNjk1LCJleHAiOjE2NzQyMDY0OTV9.BBP3fOAjtTT-abOg5rExQckYBhWCIk1a855K-ULMmgs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjOGM0OGVhNmI2ZTRmMzc4M2IxN2MwIiwiaWF0IjoxNjc0NjE1NjEzLCJleHAiOjE2NzQ3ODg0MTN9.srS0buycC2cKk8Fuw34nz0-c0LekRYF4jG1rNuGFlE0
 
 ###
 
@@ -31,4 +31,13 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/users/login
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjN2I5NzBkYzgwYjI4Njk1YmY0YTM2IiwiaWF0IjoxNjc0MDMzNjk1LCJleHAiOjE2NzQyMDY0OTV9.BBP3fOAjtTT-abOg5rExQckYBhWCIk1a855K-ULMmgs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNkZmJrckBkZmcudWsiLCJ1c2VySWQxYyI6IkNFem1uRUdEIiwidXNlcklkIjoiNjNjOGM0OGVhNmI2ZTRmMzc4M2IxN2MwIiwiaWF0IjoxNjc0NzkwMjIxLCJleHAiOjE2NzQ5NjMwMjF9.q62iVSSXpXBN8rIbepzUdTGoAe85IU70gtYP7pEJX54
+
+###
+
+GET http://localhost:5000/users/check-user
+Content-Type: application/json
+
+{
+  "email": "agfbr@dfgd.dsf"
+}

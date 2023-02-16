@@ -13,6 +13,10 @@ export type ConfigSchema = {
   DB_USER: string;
   DB_PASSWORD: string;
   JWT_SECRET: string;
+  URL_1C_USER: string;
+  URL_1C_ORDERS: string;
+  URL_1C_FACADES: string;
+  AUTHORIZATION_PHRASE_1C: string;
 }
 
 export const configSchema = convict<ConfigSchema>({
@@ -69,5 +73,29 @@ export const configSchema = convict<ConfigSchema>({
     format: String,
     env: 'JWT_SECRET',
     default: null
-  }
+  },
+  URL_1C_USER: {
+    doc: '1c base users resource url',
+    format: String,
+    env: 'URL_1C_USER',
+    default: null
+  },
+  URL_1C_ORDERS: {
+    doc: '1c base orders resource url',
+    format: String,
+    env: 'URL_1C_ORDERS',
+    default: null
+  },
+  URL_1C_FACADES: {
+    doc: '1c base facades resource url',
+    format: String,
+    env: 'URL_1C_FACADES',
+    default: null
+  },
+  AUTHORIZATION_PHRASE_1C: {
+    doc: '1c authorization string',
+    format: String,
+    env: 'AUTHORIZATION_PHRASE_1C',
+    default: null
+}
 });

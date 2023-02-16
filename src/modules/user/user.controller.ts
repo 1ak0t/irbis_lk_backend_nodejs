@@ -9,11 +9,13 @@ import {UserServiceInterface} from './user-service.interface.js';
 import {ConfigInterface} from '../../common/config/config.interface.js';
 import HttpError from '../../common/errors/http-error.js';
 import {StatusCodes} from 'http-status-codes';
-import {createJWT, fillDTO} from '../../utils/common.js';
+import {createJWT, fillDTO, isEmpty1cRes} from '../../utils/common.js';
 import UserResponse from './response/user.response.js';
 import {JWT_ALGORITHM} from './user.constant.js';
 import LoggedUserDto from './dto/logged-user.dto.js';
 import LoginUserDto from './dto/login-user.dto.js';
+import CheckEmailDto from './dto/check-email.dto.js';
+import got from 'got';
 
 @injectable()
 export default class UserController extends Controller {
@@ -27,7 +29,8 @@ export default class UserController extends Controller {
 
     this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
     this.addRoute({path: '/login', method: HttpMethod.Post, handler: this.login});
-    this.addRoute({path: '/login', method: HttpMethod.Get, handler: this.checkAuthenticate})
+    this.addRoute({path: '/login', method: HttpMethod.Get, handler: this.checkAuthenticate});
+    this.addRoute({path: '/check-user', method: HttpMethod.Post, handler: this.checkRegistration});
   }
 
   public async create({body}: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>, res: Response, _next: NextFunction): Promise<void> {
@@ -66,12 +69,47 @@ export default class UserController extends Controller {
       {email: user.email, userId1c: user.userId1c, userId: user.id}
     )
 
-    this.ok(res, fillDTO(LoggedUserDto, {email: user.email, userId1c: user.userId1c, token}))
+    this.ok(res, fillDTO(LoggedUserDto, {email: user.email, name: user.name, userId1c: user.userId1c, token}))
   }
 
   public async checkAuthenticate(req: Request, res: Response) {
     const user = await this.userService.findByEmail(req.user.email);
 
     this.ok(res, fillDTO(LoggedUserDto, user));
+  }
+
+  public async checkRegistration({body}: Request<Record<string, unknown>, Record<string, unknown>, CheckEmailDto>, res: Response, _next: NextFunction): Promise<void> {
+    const user = await this.userService.findByEmail(body.email);
+    const url = this.configService.get('URL_1C_USER');
+    const auth1c = this.configService.get('AUTHORIZATION_PHRASE_1C');
+
+    if (!user) {
+      try {
+        const {body: user1c} = await got.get(`${url}${body.email}`, {
+          headers: {
+            'Authorization' : `${auth1c}`
+          }
+        });
+        if (isEmpty1cRes(user1c)) {
+          res
+            .type('application/json')
+            .status(StatusCodes.NON_AUTHORITATIVE_INFORMATION)
+            .send(user1c);
+        } else {
+          res
+            .type('application/json')
+            .status(StatusCodes.NOT_FOUND)
+            .send('No such user in 1c');
+        }
+      } catch {
+        throw new HttpError(
+          StatusCodes.BAD_REQUEST,
+          `Can't connect to 1c server`,
+          'UserController'
+        );
+      }
+    }
+
+    this.ok(res, fillDTO(UserResponse, user));
   }
 }

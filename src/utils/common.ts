@@ -69,3 +69,7 @@ export const createJWT = async (algorithm: string, jwtSecret: string, payload: o
     .sign(crypto.createSecretKey(jwtSecret, 'utf-8'));
 
 export const getFullServerPath = (host: string, port: number) => `http://${host}:${port}`;
+
+export const isEmpty1cRes = (object: string) => {
+  return object.length > 2;
+}
